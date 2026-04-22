@@ -1,62 +1,59 @@
 # claude-md-coach
 
-An ambient coach for your `CLAUDE.md` files. Reads your Claude Code chat history, finds dead rules, mines your corrections, and proposes smarter replacements. Runs locally. Uses your existing Claude subscription.
+> **An ambient coach for your CLAUDE.md. Finds dead rules, mines your corrections, rewrites smarter. Runs locally, using your existing Claude subscription.**
 
-> **No API key. No server. No data collection.** Everything runs on your machine.
+[![npm version](https://img.shields.io/npm/v/claude-md-coach.svg)](https://www.npmjs.com/package/claude-md-coach)
+[![GitHub stars](https://img.shields.io/github/stars/thevoiduniverse/claude-md-coach?style=flat)](https://github.com/thevoiduniverse/claude-md-coach)
+[![license](https://img.shields.io/npm/l/claude-md-coach.svg)](./LICENSE)
+
+Your `CLAUDE.md` is supposed to keep Claude on track. But after a few months of adding rules for every mistake, it grows past 300 lines, contradicts itself, and Claude starts ignoring most of it. **You don't notice, because the failure is silent.**
+
+`claude-md-coach` is a Claude Code plugin that watches how you actually work, finds the rules Claude never follows, drafts the rules you forgot to write, and quietly keeps your `CLAUDE.md` sharp. You install it once. It runs in the background. You approve the rules it surfaces.
 
 ## Install
 
-Inside Claude Code, run:
+Inside Claude Code:
 
 ```
 /plugin marketplace add thevoiduniverse/claude-md-coach
 /plugin install claude-md-coach@claude-md-coach
 ```
 
-That's the entire setup. After install, the plugin runs in the background. You never type another command.
+That's the entire setup. You never type another command unless you want to.
 
-**Uninstall:**
+## How it works · 3 steps
 
-```
-/plugin uninstall claude-md-coach
-```
+**1. Install once.** The plugin auto-registers a skill and two hooks (SessionStart, SessionEnd). Zero config files touched.
 
-**Local dev / try without publishing:**
+**2. Use Claude normally.** After every session ends, the tool silently scans your chat for correction patterns and rule misfires. Nothing interrupts you.
 
-```bash
-git clone https://github.com/thevoiduniverse/claude-md-coach.git
-claude --plugin-dir ./claude-md-coach
-```
+**3. Approve what you want.** When Claude notices you've corrected the same thing 3+ times, it pauses mid-chat and offers a rule in your voice. One click to add it.
 
-## What happens after install
-
-- **Mid-chat**: when Claude notices you've corrected the same thing 3+ times in a session, it pauses and offers to add a rule to your CLAUDE.md.
-- **Session start**: if pending insights accumulated from previous sessions, you see a one-line nudge.
-- **Session end**: silent re-scan updates the cache in the background.
+> **No API key. No server. No data leaves your machine.**
 
 ## Why this exists
 
-Research (and [Anthropic's own docs](https://code.claude.com/docs/en/best-practices)) show that as a `CLAUDE.md` file grows past ~150 lines, Claude starts ignoring rules. A $200/mo Max user ran [their own A/B test](https://github.com/anthropics/claude-code/issues/34358): advisory rules violated **~100%** of the time; the same rules backed by a hook violated **0%**.
+If you use Claude Code seriously, your `CLAUDE.md` has probably drifted. You wrote rules. Claude ignores many of them. You correct the same mistake over and over. It feels like Claude isn't listening, and you don't know which rules are actually working.
 
-Your `CLAUDE.md` rots in two directions:
+You're not imagining it. The research is clear:
 
-- Rules you **wrote but Claude ignores** (dead weight)
-- Rules you **never wrote but should have** (patterns you keep correcting manually)
+- **[AGENTIF (Tsinghua, NeurIPS 2025)](https://arxiv.org/abs/2505.16944)** · Models follow under 30% of instructions perfectly in agentic tasks with typical rule counts.
+- **[Lost in the Middle (Liu et al.)](https://arxiv.org/abs/2307.03172)** · Instructions buried mid-prompt get retrieved 20 percentage points less accurately.
+- **[Claude Code issue #34358](https://github.com/anthropics/claude-code/issues/34358)** · A $200/mo Max user ran their own A/B test. Advisory rules violated ~100% of the time. Same rules with hook enforcement: 0%.
+- **[Anthropic's own docs](https://code.claude.com/docs/en/best-practices)** · *"Performance degrades as [the context] fills."*
 
-This tool fixes both, using your own session history as the source of truth.
+Your `CLAUDE.md` rots in two directions at once: rules you wrote that Claude ignores, and rules you never wrote but should have. This tool fixes both, using your own session history as the source of truth.
 
-## What the tool does
+## What changes after install
 
-1. **Finds dead rules**. Rules whose triggers never appear in your sessions.
-2. **Flags contradictions**. Rule pairs that tell Claude opposite things.
-3. **Mines your corrections**. Patterns you fix 3+ times become rule candidates.
-4. **Drafts in your voice**. New rules match your existing style.
-5. **Distills safely**. Compresses sections; replays past sessions to verify behavior is preserved.
-6. **Tracks history**. Snapshot every scan; watch rule effectiveness evolve.
+- **Mid-chat** · When Claude spots a repeated correction pattern, it pauses and offers a rule in your voice. You approve with one click.
+- **Session start** · If pending insights accumulated from previous sessions, you see a one-line nudge.
+- **Session end** · Silent re-scan updates the local cache. No network calls.
+- **Every week** · Your `CLAUDE.md` trends toward lean and effective without manual cleanup.
 
-## Manual CLI (optional)
+## Manual CLI (for power users)
 
-After installation the `claude-md-coach` command is on your PATH. You never need it for the ambient experience, but if you want to dig in:
+The `claude-md-coach` command is on your PATH after install. You never need it for the ambient experience, but if you want to dig in:
 
 ```bash
 claude-md-coach scan                    # deterministic audit report
@@ -68,16 +65,46 @@ claude-md-coach history                 # trends from recent scans
 claude-md-coach pending                 # cached nudge (used by the SessionStart hook)
 ```
 
-## Developing this plugin locally
+## Install methods
+
+**Claude Code plugin (full ambient experience):**
+
+```
+/plugin marketplace add thevoiduniverse/claude-md-coach
+/plugin install claude-md-coach@claude-md-coach
+```
+
+**npm (CLI only):**
 
 ```bash
+npm install -g claude-md-coach
+```
+
+**No install (quick scan):**
+
+```bash
+npx claude-md-coach scan
+```
+
+## Uninstall
+
+```
+/plugin uninstall claude-md-coach
+```
+
+Nothing lingers on your system beyond a cache at `~/.cache/claude-md-coach/`, which you can delete any time.
+
+## Local development
+
+```bash
+git clone https://github.com/thevoiduniverse/claude-md-coach.git
 cd claude-md-coach
 npm install
 npx tsc
 claude --plugin-dir ./
 ```
 
-The `--plugin-dir` flag loads this repo as a plugin for the current Claude Code session only.
+The `--plugin-dir` flag loads this repo as a plugin for the current Claude Code session only, without installing globally.
 
 ## Architecture
 
@@ -91,7 +118,7 @@ skills/
 hooks/
   hooks.json               SessionStart + SessionEnd registration
 bin/
-  claude-md-coach          CLI shim (bash)
+  claude-md-coach          CLI shim
 src/
   cli.ts                   command entry
   parsers/                 CLAUDE.md + session JSONL parsers
@@ -105,8 +132,12 @@ dist/                      compiled output (shipped with plugin)
 ## Honest limitations
 
 - Dead-rule detection uses keyword matching in the deterministic pass. Advisory rules like *"Demand elegance"* don't leave mechanical traces even when they're working. The LLM verification step filters these out, but deep semantic coverage still has gaps.
-- LLM features spawn `claude -p` subprocesses. On Max plan, this counts against rate limits. The tool caches and batches aggressively. A typical `fix` run costs 3 to 10 Claude calls.
-- Correction mining needs explicit corrections in your session history (messages starting with "no", "don't", "actually", etc.). Silent edit-and-move-on users produce less signal.
+- LLM features spawn `claude -p` subprocesses. On a Max plan, this counts against rate limits. The tool caches and batches aggressively. A typical `fix` run costs 3 to 10 Claude calls.
+- Correction mining needs explicit corrections in your session history (messages starting with *"no"*, *"don't"*, *"actually"*, etc.). Silent edit-and-move-on users produce less signal.
+
+## The cost of skipping this
+
+If you don't fix your `CLAUDE.md`, it keeps growing. Claude keeps ignoring rules silently. You re-explain the same preferences in every new chat. Six months from now, your file is 500 lines and Claude feels broken. It isn't broken. It's buried.
 
 ## License
 
