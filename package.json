@@ -1,7 +1,7 @@
 {
   "name": "claude-md-coach",
   "version": "0.1.0",
-  "description": "Ambient coach for your CLAUDE.md files. Learns from your chat history, finds dead rules, suggests missing ones, rewrites smarter.",
+  "description": "Ambient coach for your CLAUDE.md files. Finds dead rules, mines your corrections, rewrites smarter. Uses your Claude subscription. No API key.",
   "bin": {
     "claude-md-coach": "./dist/cli.js"
   },
@@ -11,10 +11,42 @@
     "build": "tsc",
     "dev": "tsc --watch",
     "scan": "tsc && node dist/cli.js scan",
-    "start": "node dist/cli.js"
+    "start": "node dist/cli.js",
+    "prepublishOnly": "npm run build"
   },
-  "keywords": ["claude", "claude-code", "claude-md", "audit", "prompt-optimization"],
+  "keywords": [
+    "claude",
+    "claude-code",
+    "claude-md",
+    "claude-code-plugin",
+    "prompt-engineering",
+    "ambient",
+    "ai",
+    "llm",
+    "cli"
+  ],
+  "author": "Karthik",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thevoiduniverse/claude-md-coach.git"
+  },
+  "bugs": {
+    "url": "https://github.com/thevoiduniverse/claude-md-coach/issues"
+  },
+  "homepage": "https://github.com/thevoiduniverse/claude-md-coach#readme",
+  "files": [
+    "dist",
+    "bin",
+    "skills",
+    "hooks",
+    ".claude-plugin",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "devDependencies": {
     "@types/node": "^22.0.0",
     "typescript": "^5.6.0"
