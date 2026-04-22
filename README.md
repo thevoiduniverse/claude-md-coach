@@ -2,6 +2,8 @@
 
 > **An ambient coach for your CLAUDE.md. Finds dead rules, mines your corrections, rewrites smarter. Runs locally, using your existing Claude subscription.**
 
+**[claudemdcoach.com](https://claudemdcoach.com)** · [npm](https://www.npmjs.com/package/claude-md-coach) · [GitHub](https://github.com/thevoiduniverse/claude-md-coach)
+
 [![npm version](https://img.shields.io/npm/v/claude-md-coach.svg?color=e8632d)](https://www.npmjs.com/package/claude-md-coach)
 [![downloads](https://img.shields.io/npm/dw/claude-md-coach.svg?color=e8632d)](https://www.npmjs.com/package/claude-md-coach)
 [![GitHub stars](https://img.shields.io/github/stars/thevoiduniverse/claude-md-coach?style=flat&color=e8632d)](https://github.com/thevoiduniverse/claude-md-coach)

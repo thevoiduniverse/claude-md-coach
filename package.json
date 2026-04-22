@@ -1,6 +1,6 @@
 {
   "name": "claude-md-coach",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Ambient coach for your CLAUDE.md files. Finds dead rules, mines your corrections, rewrites smarter. Uses your Claude subscription. No API key.",
   "bin": {
     "claude-md-coach": "./dist/cli.js"
@@ -34,7 +34,7 @@
   "bugs": {
     "url": "https://github.com/thevoiduniverse/claude-md-coach/issues"
   },
-  "homepage": "https://github.com/thevoiduniverse/claude-md-coach#readme",
+  "homepage": "https://claudemdcoach.com",
   "files": [
     "dist",
     "bin",
