@@ -2,9 +2,10 @@
 
 > **An ambient coach for your CLAUDE.md. Finds dead rules, mines your corrections, rewrites smarter. Runs locally, using your existing Claude subscription.**
 
-[![npm version](https://img.shields.io/npm/v/claude-md-coach.svg)](https://www.npmjs.com/package/claude-md-coach)
-[![GitHub stars](https://img.shields.io/github/stars/thevoiduniverse/claude-md-coach?style=flat)](https://github.com/thevoiduniverse/claude-md-coach)
-[![license](https://img.shields.io/npm/l/claude-md-coach.svg)](./LICENSE)
+[![npm version](https://img.shields.io/npm/v/claude-md-coach.svg?color=e8632d)](https://www.npmjs.com/package/claude-md-coach)
+[![downloads](https://img.shields.io/npm/dw/claude-md-coach.svg?color=e8632d)](https://www.npmjs.com/package/claude-md-coach)
+[![GitHub stars](https://img.shields.io/github/stars/thevoiduniverse/claude-md-coach?style=flat&color=e8632d)](https://github.com/thevoiduniverse/claude-md-coach)
+[![license](https://img.shields.io/github/license/thevoiduniverse/claude-md-coach?color=e8632d)](./LICENSE)
 
 Your `CLAUDE.md` is supposed to keep Claude on track. But after a few months of adding rules for every mistake, it grows past 300 lines, contradicts itself, and Claude starts ignoring most of it. **You don't notice, because the failure is silent.**
 
