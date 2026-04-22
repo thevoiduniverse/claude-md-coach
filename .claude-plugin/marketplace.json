@@ -1,0 +1,20 @@
+{
+  "name": "claude-md-coach",
+  "owner": {
+    "name": "Karthik"
+  },
+  "metadata": {
+    "description": "Ambient coach for your CLAUDE.md files — audits, rewrites, distills, using your own chat history.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "claude-md-coach",
+      "source": "./",
+      "description": "Ambient coach for your CLAUDE.md files. Reads your Claude Code chat history, finds dead rules, mines corrections, proposes smarter replacements — all locally, using your existing Claude subscription. No API key required.",
+      "version": "0.1.0",
+      "author": { "name": "Karthik" },
+      "license": "MIT"
+    }
+  ]
+}

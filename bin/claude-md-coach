@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# claude-md-coach CLI shim — runs the bundled Node CLI from wherever the plugin is installed.
+exec node "$(dirname "$0")/../dist/cli.js" "$@"
