@@ -20,6 +20,11 @@ const MIN_KEYWORDS_FOR_MATCH = 2;
 const MIN_OVERLAP_RATIO = 0.25;
 
 export function analyzeDeadRules(file: ClaudeMdFile, sessions: Session[]): DeadRuleAnalysis {
+  // No sessions in scope = no evidence either way. Don't claim rules are dead.
+  if (sessions.length === 0) {
+    return { perRule: [], neverTriggered: [], weakSignal: [] };
+  }
+
   const sessionBlobs = sessions.map(s => ({
     sessionId: s.sessionId,
     blob: buildSessionBlob(s),

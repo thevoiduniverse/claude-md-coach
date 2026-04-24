@@ -1,7 +1,7 @@
 {
   "name": "claude-md-coach",
   "description": "Ambient coach for your CLAUDE.md files. Watches your sessions, finds dead rules, mines corrections, suggests missing rules — all locally, no API key.",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "author": {
     "name": "Karthik"
   },
