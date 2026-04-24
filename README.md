@@ -92,7 +92,7 @@ npx claude-md-coach scan
 ## Uninstall
 
 ```
-/plugin uninstall claude-md-coach
+/plugin uninstall claude-md-coach@claude-md-coach
 ```
 
 Nothing lingers on your system beyond a cache at `~/.cache/claude-md-coach/`, which you can delete any time.
