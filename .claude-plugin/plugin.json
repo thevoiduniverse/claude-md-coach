@@ -11,6 +11,5 @@
     "prompt-optimization",
     "audit",
     "ambient"
-  ],
-  "hooks": "./hooks/hooks.json"
+  ]
 }
